@@ -47,3 +47,5 @@ next-env.d.ts
 # 支給資料の元ファイル（公開リポジトリには入れない。ロゴは assets/logo-source.jpg に取り込み済み）
 /*.pdf
 /*.jpg
+/*.zip
+/*.png

@@ -145,11 +145,8 @@ export default function Home() {
           <SectionHeading en="Access" ja="アクセス" />
           <div className="mt-14 grid gap-10 md:mt-20 md:grid-cols-[1.4fr_1fr] md:gap-16">
             <MapEmbed className="js-reveal js-fade aspect-[4/3] md:aspect-auto md:min-h-[420px]" />
-            <div className="js-reveal js-fade">
-              <div className="relative aspect-[3/2] overflow-hidden">
-                <Photo name="access.jpg" sizes="(min-width: 768px) 40vw, 100vw" />
-              </div>
-              <dl className="mt-8 space-y-4 text-[15px] leading-relaxed">
+            <div className="js-reveal js-fade md:self-center">
+              <dl className="space-y-4 text-[15px] leading-relaxed">
                 <div>
                   <dt className="text-sm text-sub">所在地</dt>
                   <dd className="mt-1">
