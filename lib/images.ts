@@ -5,12 +5,12 @@ type ImageMeta = { label: string; alt: string; position?: string };
 
 export const images = {
   "hero-01.jpg": { label: "TOPメイン（ダクトを取り付ける職人）", alt: "厨房のダクトを取り付ける職人", position: "78% 50%" },
-  "hero-02.jpg": { label: "2人でダクトを持ち上げる", alt: "スタッフ2人でダクトを天井へ取り付ける様子", position: "82% 50%" },
-  "hero-03.jpg": { label: "ダクトをビス留めする", alt: "インパクトドライバーでダクトを固定する職人", position: "30% 50%" },
+  "hero-prep.jpg": { label: "作業場でダクトを切断する職人", alt: "作業場でダクトを切断する職人", position: "55% 50%" },
+  "hero-cutting.jpg": { label: "ダクト切断の手元", alt: "切断機でダクトを切る手元", position: "65% 50%" },
   "company-hero.jpg": { label: "店舗での作業風景（引き）", alt: "店舗でダクト工事を行うスタッフ", position: "30% 50%" },
   "service-hero.jpg": { label: "天井のダクト施工", alt: "店舗の天井にダクトを施工する様子" },
   "recruit-main.jpg": { label: "採用メイン（現場で天井を確認する3人）", alt: "天井を見上げて施工箇所を確認するスタッフ", position: "55% 50%" },
-  "top-recruit.jpg": { label: "TOPの採用（3人での打ち合わせ）", alt: "図面を見ながら打ち合わせをするスタッフ", position: "52% 50%" },
+  "top-recruit.jpg": { label: "TOPの採用（3人での打ち合わせ）", alt: "図面を見ながら打ち合わせをするスタッフ", position: "25% 50%" },
   "about.jpg": { label: "佐々木設備について", alt: "ダクトを加工する職人", position: "20% 50%" },
   "works-01.jpg": { label: "ダクト工事のイラスト", alt: "天井にダクトを施工する職人のイラスト" },
   "works-02.jpg": { label: "重量機器搬入・据付のイラスト", alt: "クレーンで吊った空調機を据え付ける職人のイラスト" },

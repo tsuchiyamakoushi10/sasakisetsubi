@@ -3,7 +3,7 @@ import LogoMark from "@/components/LogoMark";
 import Photo from "@/components/Photo";
 import type { ImageName } from "@/lib/images";
 
-const slides: ImageName[] = ["hero-01.jpg", "hero-02.jpg", "hero-03.jpg"];
+const slides: ImageName[] = ["hero-01.jpg", "hero-prep.jpg", "hero-cutting.jpg"];
 
 /** TOP メインビジュアル（A2〜A5） */
 export default function Hero() {
