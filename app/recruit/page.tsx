@@ -36,7 +36,7 @@ export default function RecruitPage() {
       {/* ヒーロー */}
       <section className="relative flex min-h-[560px] items-end overflow-hidden bg-ink text-white md:min-h-[720px]">
         <div className="absolute inset-0">
-          <Photo name="recruit-hero.jpg" sizes="100vw" preload tone="dark" />
+          <Photo name="recruit-main.jpg" sizes="100vw" preload tone="dark" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/30" />
         </div>
         <div className="l-container relative pb-16 pt-32 md:pb-28">
@@ -58,7 +58,7 @@ export default function RecruitPage() {
       <section id="message" className="l-section">
         <div className="l-container grid items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
           <div className="relative aspect-[4/3] overflow-hidden md:order-2">
-            <Photo name="teamwork.jpg" sizes="(min-width: 768px) 50vw, 100vw" />
+            <Photo name="recruit-message.jpg" sizes="(min-width: 768px) 50vw, 100vw" />
             <Cover />
           </div>
           <div>

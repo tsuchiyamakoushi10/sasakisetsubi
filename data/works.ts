@@ -18,7 +18,6 @@ export const works: Work[] = [
     title: "ダクト工事",
     en: "Duct work",
     summary: "空調・換気・排煙・厨房排気など、建物の空気の流れをつくるダクトを施工します。",
-    image: "work-close.jpg",
     icon: "duct",
   },
   {

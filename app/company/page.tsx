@@ -97,7 +97,7 @@ export default function CompanyPage() {
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden">
-            <Photo name="meeting.jpg" sizes="(min-width: 768px) 50vw, 100vw" />
+            <Photo name="philosophy.jpg" sizes="(min-width: 768px) 50vw, 100vw" />
             <Cover />
           </div>
         </div>

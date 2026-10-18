@@ -45,7 +45,7 @@ export default function Home() {
             </div>
           </div>
           <div className="relative aspect-[4/5] overflow-hidden md:aspect-[5/6]">
-            <Photo name="hands.jpg" sizes="(min-width: 768px) 50vw, 100vw" />
+            <Photo name="about.jpg" sizes="(min-width: 768px) 50vw, 100vw" />
             <Cover />
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function Home() {
       {/* RECRUIT */}
       <section id="recruit" className="relative overflow-hidden bg-ink text-white">
         <div className="absolute inset-0">
-          <Photo name="recruit-bg.jpg" sizes="100vw" tone="dark" />
+          <Photo name="top-recruit.jpg" sizes="100vw" tone="dark" />
           <div className="absolute inset-0 bg-black/50" />
           <Cover color="var(--color-ink)" />
         </div>

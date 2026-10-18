@@ -1,6 +1,6 @@
 import type { WorkIcon } from "@/data/works";
 
-// 写真のない事業（Works02〜04）のイラスト。4:3（400×300）で、枠いっぱいに表示する。
+// 事業紹介（Works01〜04）のイラスト。4:3（400×300）で、枠いっぱいに表示する。
 const c = {
   bg: "#e9edf2",
   far: "#d5dbe3",
@@ -41,6 +41,57 @@ function Windows({ x0, y0, cols, rows }: { x0: number; y0: number; cols: number;
       {Array.from({ length: rows * cols }, (_, i) => (
         <rect key={i} x={x0 + (i % cols) * 34} y={y0 + Math.floor(i / cols) * 40} width="20" height="24" fill={c.window} />
       ))}
+    </>
+  );
+}
+
+// ダクト工事：厨房のフードから天井を通して、外へ排気するダクトを施工する
+function Duct() {
+  const seams = Array.from({ length: 12 }, (_, i) => 104 + i * 22);
+  return (
+    <>
+      <rect width="400" height="300" fill={c.bg} />
+      <rect width="400" height="30" fill={c.far} />
+      <path d="M0 30h400" stroke={c.steel} strokeWidth="2" />
+      <rect x="372" y="30" width="28" height="232" fill={c.far} />
+      <rect y="262" width="400" height="38" fill={c.ground} />
+
+      {/* 厨房（コンロとフード） */}
+      <rect x="28" y="196" width="104" height="66" fill={c.white} stroke={c.ink} strokeWidth="2.5" />
+      <path d="M28 212h104" stroke={c.ink} strokeWidth="2" />
+      <ellipse cx="58" cy="196" rx="14" ry="4" fill={c.dark} />
+      <ellipse cx="102" cy="196" rx="14" ry="4" fill={c.dark} />
+      <path d="M36 150h88l-14-30H50z" fill={c.steelLight} stroke={c.ink} strokeWidth="2.5" strokeLinejoin="round" />
+      <path d="M80 182v-22M74 166l6-7 6 7" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" />
+
+      {/* ダクト（立ち上がり → エルボ → 横引き） */}
+      <rect x="68" y="70" width="24" height="50" fill={c.steelLight} stroke={c.dark} strokeWidth="2" />
+      <path d="M68 86l24 -8M68 104l24 -8" stroke={c.steel} strokeWidth="1.5" />
+      <path d="M68 70a24 24 0 0 1 24 -24v24z" fill={c.steelLight} stroke={c.dark} strokeWidth="2" strokeLinejoin="round" />
+      <rect x="92" y="46" width="282" height="24" fill={c.steelLight} stroke={c.dark} strokeWidth="2" />
+      {seams.map((x) => (
+        <path key={x} d={`M${x} 46l8 24`} stroke={c.steel} strokeWidth="1.5" />
+      ))}
+      <path d="M380 58h14M388 52l7 6-7 6" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* 吊りバンド */}
+      {[150, 270, 350].map((x) => (
+        <g key={x}>
+          <path d={`M${x} 30v16`} stroke={c.dark} strokeWidth="3" />
+          <path d={`M${x - 3} 44h6v28h-6z`} fill={c.navy} />
+        </g>
+      ))}
+
+      {/* 脚立と職人 */}
+      <path d="M228 262L244 150M272 262L256 150" stroke={c.orange} strokeWidth="4" strokeLinecap="round" />
+      <path d="M239.7 180h20.6M235.4 210h29.2M231.1 240h37.8" stroke={c.orange} strokeWidth="3" />
+      <rect x="238" y="146" width="24" height="6" fill={c.dark} />
+      <Worker x={250} y={146} arm="up" />
+
+      {/* 床に置いたダクト材 */}
+      <rect x="304" y="236" width="52" height="26" fill={c.steelLight} stroke={c.dark} strokeWidth="2" />
+      <ellipse cx="356" cy="249" rx="5" ry="13" fill={c.dark} />
+      <path d="M318 236l6 26M336 236l6 26" stroke={c.steel} strokeWidth="1.5" />
     </>
   );
 }
@@ -179,7 +230,8 @@ function Insulation() {
   );
 }
 
-const scenes: Partial<Record<WorkIcon, () => React.ReactNode>> = {
+const scenes: Record<WorkIcon, () => React.ReactNode> = {
+  duct: Duct,
   heavy: Heavy,
   scaffold: Scaffold,
   insulation: Insulation,
@@ -187,7 +239,6 @@ const scenes: Partial<Record<WorkIcon, () => React.ReactNode>> = {
 
 export default function WorkIllust({ name, label }: { name: WorkIcon; label: string }) {
   const Scene = scenes[name];
-  if (!Scene) return null;
   return (
     <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label={label} className="h-full w-full">
       <Scene />
