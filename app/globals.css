@@ -312,24 +312,24 @@ body {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1.6s ease;
+  transition: opacity 1.2s ease;
 }
 
 .l-mv-slide.is-current {
   opacity: 1;
 }
 
-/* 表示中は 8 秒かけて 1.0 → 1.1。外れたらフェードが終わってから元に戻す */
+/* 表示中は 6 秒かけて 1.0 → 1.1。外れたらフェードが終わってから元に戻す */
 .l-mv-image {
   position: absolute;
   inset: 0;
   transform: scale(1);
-  transition: transform 0s linear 1.6s;
+  transition: transform 0s linear 1.2s;
 }
 
 .l-mv-slide.is-zoom .l-mv-image {
   transform: scale(1.1);
-  transition: transform 8s linear;
+  transition: transform 6s linear;
 }
 
 /* 文字を読みやすくするための薄い影（常時） */

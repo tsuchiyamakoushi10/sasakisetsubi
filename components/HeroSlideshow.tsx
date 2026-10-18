@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-const INTERVAL_MS = 6000;
+const INTERVAL_MS = 4000;
 
-/** A2 メインビジュアルのスライドショー。表示中の写真はゆっくりズームする（CSS 側で 8s linear） */
+/** A2 メインビジュアルのスライドショー。表示中の写真はゆっくりズームする（CSS 側で 6s linear） */
 export default function HeroSlideshow({ slides }: { slides: React.ReactNode[] }) {
   const [current, setCurrent] = useState(0);
   const [zoom, setZoom] = useState(false);
