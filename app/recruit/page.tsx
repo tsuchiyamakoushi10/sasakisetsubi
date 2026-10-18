@@ -34,12 +34,13 @@ export default function RecruitPage() {
       <StickyMenu items={sticky} />
 
       {/* ヒーロー */}
-      <section className="relative flex min-h-[560px] items-end overflow-hidden bg-ink text-white md:min-h-[720px]">
-        <div className="absolute inset-0">
+      {/* スマホは写真の下に見出し（顔に文字が重ならないように）、PC は写真の上に重ねる */}
+      <section className="relative overflow-hidden bg-ink text-white md:flex md:min-h-[720px] md:items-end">
+        <div className="relative h-[56svh] min-h-[320px] md:absolute md:inset-0 md:h-auto">
           <Photo name="recruit-main.jpg" sizes="100vw" preload tone="dark" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-black/40 md:from-black/70 md:via-black/30 md:to-black/30" />
         </div>
-        <div className="l-container relative pb-16 pt-32 md:pb-28">
+        <div className="l-container relative -mt-6 pb-16 md:mt-0 md:pb-28 md:pt-32">
           <p className="c-en text-base text-white/80 md:text-lg">Recruit</p>
           <h1 className="c-mincho mt-4 text-[32px] font-semibold leading-[1.6] tracking-[0.1em] md:text-[56px]">
             経験はいらない。
