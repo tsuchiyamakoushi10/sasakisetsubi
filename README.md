@@ -17,10 +17,14 @@ npm run build && npm start   # 本番ビルドの確認
 
 | 変数 | 内容 |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | 公開URL（末尾スラッシュなし）。canonical・OGP・sitemap・JSON-LD に使う |
+| `NEXT_PUBLIC_SITE_URL` | 公開URL（`https://` から、末尾スラッシュなし）。canonical・OGP・sitemap・JSON-LD に使う。未設定なら Vercel の本番 URL（`*.vercel.app`）になる。独自ドメインを入れると、本番の `*.vercel.app` へのアクセスは独自ドメインへ転送される |
 | `RESEND_API_KEY` | Resend の API キー（本番で未設定だと、フォームは「お電話で」と案内するエラーを返す） |
 | `MAIL_FROM` | 送信元（既定：`株式会社佐々木設備 <noreply@x-edge-mail.jp>`） |
 | `MAIL_TO` | 通知先（`sasakisetsubi912@gmail.com`） |
+| `NEXT_PUBLIC_GA_ID` | GA4 の測定 ID（`G-` で始まる）。本番（Production）だけで計測する。**入れる前にプライバシーポリシーへ GA の記載を足す** |
+| `GOOGLE_SITE_VERIFICATION` | Search Console の「HTML タグ」で確認するときのコード（`content="…"` の中身）。DNS で確認するなら不要 |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile（フォームのロボット判定）のキー。両方入れると有効になる（フォームに確認の枠が出る） |
+| `VERCEL_DEEP_CLONE` | `true` にする。sitemap の lastmod（最終更新日）を git の履歴から取るため。未設定だと lastmod を出さない |
 
 ## ページ
 
@@ -63,8 +67,35 @@ API：`/api/entry`（採用エントリー）、`/api/contact`（お問い合わ
 - [ ] 施工実績のエリア・追加分（`data/results.ts`）
 - [ ] 未経験の日給・雇用形態・応募の流れ（`data/recruit.ts`）
 - [ ] 給与が確定したら `JOB_POSTING_ENABLED = true`（JobPosting の構造化データを出力。`datePosted` も見直す）
-- [ ] スタッフ紹介の名前・入社年・コメント（`data/staff.ts`。いまはデモ文で公開中）
+- [x] スタッフ紹介の名前・入社年・コメント（`data/staff.ts`）
 - [ ] アクセント色
 - [ ] ドメイン（`NEXT_PUBLIC_SITE_URL`）
 - [ ] 「私たちの強み」の説明文・各見出しのキャッチ（指示書の文章から起こした案。要確認）
-- [ ] 公開後に Google Search Console へ登録
+- [ ] 公開後に Google Search Console へ登録（下の「公開の手順」）
+
+## 公開の手順（SEO・計測・セキュリティ）
+
+### 1. ドメイン
+1. ドメインを取得し、Vercel の Project → Settings → Domains に `example.co.jp` と `www.example.co.jp` を追加する。どちらか一方を正にして、もう一方は Vercel の画面で正のほうへ転送（308）する
+2. DNS に Vercel が示すレコード（apex は A、www は CNAME）を設定する。SSL 証明書は Vercel が自動で発行する
+3. 環境変数 `NEXT_PUBLIC_SITE_URL` を正のほう（例 `https://www.example.co.jp`）にして再デプロイする
+4. `https://<正のドメイン>/robots.txt` の Sitemap 行と、ページの canonical が新しいドメインになっていることを確かめる
+
+### 2. Google Search Console
+1. 「ドメイン」プロパティで追加し、表示される TXT レコードを DNS に入れて確認する（http/https・www 有無をまとめて扱える。HTML タグで確認する場合は `GOOGLE_SITE_VERIFICATION`）
+2. 「サイトマップ」に `sitemap.xml` を送信する
+3. 「URL 検査」で TOP・採用情報をインデックス登録リクエストする
+4. 1〜2 週間後に「ページのインデックス登録」で、6 ページが登録されているか確かめる
+
+### 3. Google アナリティクス 4
+1. プライバシーポリシーに GA の記載を足す（Google の規約で必要）
+2. GA4 のプロパティとウェブストリームを作り、測定 ID を `NEXT_PUBLIC_GA_ID` に入れて再デプロイする
+3. GA4 の管理 → イベントで `generate_lead`（問い合わせ・応募の完了）をキーイベントにする。`tel_click`（電話番号のタップ）もキーイベントにしてよい
+4. GA4 の管理 → データ保持を 14 か月にする（既定は 2 か月）
+5. 「リアルタイム」で自分のアクセスが見えることを確かめる
+
+### 4. セキュリティ
+- CSP は試験運用中（`next.config.ts` の `CSP_REPORT_ONLY = true`）。公開から 1〜2 週間、Vercel のログで `[csp-report]` を検索し、正規の動作（GA・地図・フォーム）による違反が出ていなければ `false` にして本番適用する
+- Vercel の Firewall で `/api/contact`・`/api/entry` に IP ごとのレート制限（例：10 分に 5 回）を設定する（コード側の制限はサーバーごとのメモリなので、併用する）
+- フォームのスパムが増えたら Turnstile のキーを入れる
+- 公開後に確かめる：securityheaders.com（A 以上）、PageSpeed Insights（モバイル）、リッチリザルトテスト（TOP・事業紹介）、Search Console のインデックス状況
