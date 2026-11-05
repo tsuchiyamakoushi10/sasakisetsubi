@@ -13,16 +13,18 @@ import { baseOpenGraph } from "@/lib/seo";
 import { company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, GA_ID, GOOGLE_SITE_VERIFICATION, IS_PRODUCTION, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
+// 太さは画面で実際に使っているものだけ読み込む（日本語フォントは 1 つの太さで CSS が約 90KB 増えるため）。
+// Noto Sans JP：400・500／Shippori Mincho：500（400 の指定もこれで表示される）・600
 const noto = Noto_Sans_JP({
   variable: "--font-noto",
-  weight: ["400", "500", "700"],
+  weight: ["400", "500"],
   display: "swap",
   preload: false,
 });
 
 const shippori = Shippori_Mincho({
   variable: "--font-shippori",
-  weight: ["500", "600", "700"],
+  weight: ["500", "600"],
   display: "swap",
   preload: false,
 });

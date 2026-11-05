@@ -76,6 +76,8 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 85],
+    // 最適化した画像を 31 日キャッシュする（写真を差し替えるときはファイル名も変える運用なので、古い写真が残る心配はない）
+    minimumCacheTTL: 2678400,
   },
   turbopack: {
     rules: {
