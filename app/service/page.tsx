@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
 import Icon, { type IconName } from "@/components/Icon";
+import JsonLd from "@/components/JsonLd";
 import PageHero from "@/components/PageHero";
 import ResultList from "@/components/ResultList";
 import SectionHeading from "@/components/SectionHeading";
@@ -8,14 +9,15 @@ import StickyMenu from "@/components/StickyMenu";
 import WorkMedia from "@/components/WorkMedia";
 import { results } from "@/data/results";
 import { works } from "@/data/works";
+import { pageMetadata } from "@/lib/seo";
+import { servicesJsonLd } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "事業紹介・施工実績",
   description:
     "ダクト工事、重量機器搬入・据付、足場組立、保温工事。一つの現場に必要な工事をまとめてお任せいただけます。株式会社佐々木設備の事業内容と施工実績。",
-  alternates: { canonical: "/service" },
-  openGraph: { url: "/service" },
-};
+  path: "/service",
+});
 
 const sticky = [
   ...works.map((w) => ({ id: `work-${w.no}`, label: `Works${w.no}` })),
@@ -117,6 +119,7 @@ export default function ServicePage() {
       </section>
 
       <ContactSection />
+      <JsonLd data={servicesJsonLd()} />
     </>
   );
 }

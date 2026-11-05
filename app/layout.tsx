@@ -7,7 +7,8 @@ import Loader from "@/components/Loader";
 import RevealObserver from "@/components/RevealObserver";
 import SpCta from "@/components/SpCta";
 import { organizationJsonLd } from "@/lib/structured-data";
-import { company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, SITE_URL } from "@/lib/site";
+import { baseOpenGraph } from "@/lib/seo";
+import { company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, GOOGLE_SITE_VERIFICATION, IS_PRODUCTION, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const noto = Noto_Sans_JP({
@@ -37,9 +38,7 @@ export const metadata: Metadata = {
   title: { default: DEFAULT_TITLE, template: `%s｜${company.name}` },
   description: DEFAULT_DESCRIPTION,
   openGraph: {
-    type: "website",
-    locale: "ja_JP",
-    siteName: company.name,
+    ...baseOpenGraph,
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     url: "/",
@@ -47,6 +46,9 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
   formatDetection: { telephone: false },
+  // Preview（確認用 URL）は検索結果に出さない
+  robots: IS_PRODUCTION ? { index: true, follow: true } : { index: false, follow: false },
+  ...(GOOGLE_SITE_VERIFICATION ? { verification: { google: GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
 export const viewport: Viewport = {

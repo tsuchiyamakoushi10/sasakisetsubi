@@ -3,14 +3,15 @@ import Link from "next/link";
 import ContactForm from "@/components/form/ContactForm";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
+import { pageMetadata } from "@/lib/seo";
 import { company } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "お問い合わせ",
-  description: "株式会社佐々木設備への工事のご相談・お問い合わせ。ダクト工事・重量機器搬入据付・足場組立・保温工事は関東一円で対応します。",
-  alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact" },
-};
+  description:
+    "株式会社佐々木設備への工事のご相談・お問い合わせ。ダクト工事・重量機器搬入据付・足場組立・保温工事は関東一円で対応します。",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

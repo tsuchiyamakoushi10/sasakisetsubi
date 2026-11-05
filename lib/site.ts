@@ -1,6 +1,17 @@
 // サイト全体で使う会社情報。未確定の値は TODO(要確認) を付けている。
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+// 公開 URL。canonical・OGP・sitemap に使う。NEXT_PUBLIC_SITE_URL が未設定なら、Vercel の本番 URL（自動で入る）を使う
+// （以前は未設定のまま公開され、canonical や sitemap が localhost を指していた）
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000")
+).replace(/\/$/, "");
+
+// 本番公開中か（Vercel では Production のときだけ true。Preview は検索エンジンに載せず、計測もしない）
+export const IS_PRODUCTION = process.env.VERCEL_ENV ? process.env.VERCEL_ENV === "production" : process.env.NODE_ENV === "production";
+
+// Google Search Console の HTML タグ確認用コード（DNS で確認する場合は不要）
+export const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION || null;
 
 export const company = {
   name: "株式会社佐々木設備",

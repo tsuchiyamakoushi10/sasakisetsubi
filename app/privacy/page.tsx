@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
+import { pageMetadata } from "@/lib/seo";
 import { company, fullAddress } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "プライバシーポリシー",
-  description: "株式会社佐々木設備の個人情報の取り扱いについて。",
-  alternates: { canonical: "/privacy" },
-  openGraph: { url: "/privacy" },
-};
+  description:
+    "株式会社佐々木設備の個人情報の取り扱いについて。",
+  path: "/privacy",
+});
 
 const sections = [
   {

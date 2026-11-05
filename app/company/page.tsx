@@ -5,15 +5,15 @@ import PageHero from "@/components/PageHero";
 import Photo from "@/components/Photo";
 import SectionHeading from "@/components/SectionHeading";
 import StickyMenu from "@/components/StickyMenu";
+import { pageMetadata } from "@/lib/seo";
 import { company, fullAddress } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "会社紹介",
   description:
     "株式会社佐々木設備の理念・代表挨拶・会社概要。埼玉県八潮市を拠点に、ダクト工事・重量鳶を中心として関東一円で施工しています。",
-  alternates: { canonical: "/company" },
-  openGraph: { url: "/company" },
-};
+  path: "/company",
+});
 
 const sticky = [
   { id: "philosophy", label: "Philosophy" },

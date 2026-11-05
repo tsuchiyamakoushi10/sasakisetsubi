@@ -9,15 +9,15 @@ import SectionHeading from "@/components/SectionHeading";
 import StickyMenu from "@/components/StickyMenu";
 import { benefits, flow, JOB_POSTING_ENABLED, jobs } from "@/data/recruit";
 import { publishedStaff } from "@/data/staff";
+import { pageMetadata } from "@/lib/seo";
 import { company } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "採用情報（未経験歓迎）",
   description:
     "株式会社佐々木設備の採用情報。ダクト工事スタッフ・重量鳶スタッフを募集中。年齢・経験不問、未経験の方にも基礎から丁寧にお教えします。社会保険完備・資格取得支援・日曜祝日休み。",
-  alternates: { canonical: "/recruit" },
-  openGraph: { url: "/recruit" },
-};
+  path: "/recruit",
+});
 
 export default function RecruitPage() {
   const sticky = [
