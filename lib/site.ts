@@ -10,8 +10,10 @@ export const SITE_URL = (
 // 本番公開中か（Vercel では Production のときだけ true。Preview は検索エンジンに載せず、計測もしない）
 export const IS_PRODUCTION = process.env.VERCEL_ENV ? process.env.VERCEL_ENV === "production" : process.env.NODE_ENV === "production";
 
-// Google アナリティクス 4 の測定 ID（G-XXXXXXXXXX）。未設定なら計測タグを出さない
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || null;
+// Google アナリティクス 4 の測定 ID（G-XXXXXXXXXX）。本番で ID が入っているときだけ計測する
+// （Preview・ローカルの閲覧を数字に混ぜない）。プライバシーポリシーの GA の記載もこれで出し分ける
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+export const ANALYTICS_ID = IS_PRODUCTION && /^G-[A-Z0-9]+$/.test(GA_ID) ? GA_ID : null;
 
 // Google Search Console の HTML タグ確認用コード（DNS で確認する場合は不要）
 export const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION || null;

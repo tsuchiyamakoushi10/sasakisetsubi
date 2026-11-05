@@ -10,7 +10,7 @@ import RevealObserver from "@/components/RevealObserver";
 import SpCta from "@/components/SpCta";
 import { organizationJsonLd } from "@/lib/structured-data";
 import { baseOpenGraph } from "@/lib/seo";
-import { company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, GA_ID, GOOGLE_SITE_VERIFICATION, IS_PRODUCTION, SITE_URL } from "@/lib/site";
+import { ANALYTICS_ID, company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, GOOGLE_SITE_VERIFICATION, IS_PRODUCTION, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // 太さは画面で実際に使っているものだけ読み込む（日本語フォントは 1 つの太さで CSS が約 90KB 増えるため）。
@@ -55,9 +55,6 @@ export const metadata: Metadata = {
   ...(GOOGLE_SITE_VERIFICATION ? { verification: { google: GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
-// GA4 は本番だけで計測する（Preview・ローカルの閲覧を数字に混ぜない）
-const gaId = IS_PRODUCTION && GA_ID && /^G-[A-Z0-9]+$/.test(GA_ID) ? GA_ID : null;
-
 export const viewport: Viewport = {
   themeColor: "#222222",
   viewportFit: "cover",
@@ -80,9 +77,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SpCta />
         <RevealObserver />
         <JsonLd data={organizationJsonLd()} />
-        {gaId && <AnalyticsEvents />}
+        {ANALYTICS_ID && <AnalyticsEvents />}
       </body>
-      {gaId && <GoogleAnalytics gaId={gaId} />}
+      {ANALYTICS_ID && <GoogleAnalytics gaId={ANALYTICS_ID} />}
     </html>
   );
 }

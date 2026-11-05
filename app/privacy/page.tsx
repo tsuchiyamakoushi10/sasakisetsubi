@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import { pageMetadata } from "@/lib/seo";
-import { company, fullAddress } from "@/lib/site";
+import { ANALYTICS_ID, company, fullAddress } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "プライバシーポリシー",
@@ -31,6 +31,15 @@ const sections = [
     title: "開示・訂正・削除",
     body: "ご本人から個人情報の開示、訂正、利用停止、削除などのご請求があった場合は、ご本人であることを確認のうえ、速やかに対応します。",
   },
+  // GA4 を使っているときだけ載せる（Google アナリティクスの利用規約で、利用していることの記載が必要）
+  ...(ANALYTICS_ID
+    ? [
+        {
+          title: "アクセス解析ツールについて",
+          body: "当社のウェブサイトでは、利用状況を把握してサイトを改善するため、Google LLC の「Google アナリティクス」を利用しています。Google アナリティクスは Cookie を使用して、個人を特定しない形でアクセスの情報を収集します。Cookie はブラウザの設定で無効にできます。また、Google が提供する「Google アナリティクス オプトアウト アドオン」を使うと、収集を止めることができます。収集される情報の取り扱いは、Google のプライバシーポリシー（https://policies.google.com/privacy）をご確認ください。",
+        },
+      ]
+    : []),
   {
     title: "改定",
     body: "本ポリシーの内容は、必要に応じて予告なく改定することがあります。改定後の内容は、本ページに掲載した時点から効力を生じます。",

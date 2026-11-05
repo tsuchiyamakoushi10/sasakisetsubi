@@ -12,11 +12,22 @@ export const baseOpenGraph = {
 const ogImage = { url: "/opengraph-image", width: 1200, height: 630, alt: DEFAULT_TITLE };
 
 /** 下層ページの metadata（title・description・canonical・OGP をまとめて作る） */
-export function pageMetadata({ title, description, path }: { title: string; description: string; path: string }): Metadata {
+export function pageMetadata({
+  title,
+  description,
+  path,
+  image = ogImage,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  /** そのページ専用の OGP 画像（app/<ページ>/opengraph-image.tsx がある場合） */
+  image?: typeof ogImage;
+}): Metadata {
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: { ...baseOpenGraph, title: `${title}｜${company.name}`, description, url: path, images: [ogImage] },
+    openGraph: { ...baseOpenGraph, title: `${title}｜${company.name}`, description, url: path, images: [image] },
   };
 }
