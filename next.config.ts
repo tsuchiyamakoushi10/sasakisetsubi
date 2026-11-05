@@ -46,16 +46,18 @@ const enforcedBaseline = toPolicy({
   "form-action": ["'self'"],
   "frame-ancestors": ["'none'"],
 });
-const fullPolicy = toPolicy(directives) + (isDev ? "" : "; upgrade-insecure-requests");
+const fullPolicy = toPolicy(directives);
+// http の読み込みを https に切り替える（Report-Only では効かないので、常に有効にする側に入れる）
+const upgrade = isDev ? "" : "; upgrade-insecure-requests";
 const reporting = "; report-uri /api/csp-report; report-to csp";
 
 const securityHeaders = [
   ...(CSP_REPORT_ONLY
     ? [
-        { key: "Content-Security-Policy", value: enforcedBaseline },
+        { key: "Content-Security-Policy", value: enforcedBaseline + upgrade },
         { key: "Content-Security-Policy-Report-Only", value: fullPolicy + reporting },
       ]
-    : [{ key: "Content-Security-Policy", value: fullPolicy + reporting }]),
+    : [{ key: "Content-Security-Policy", value: fullPolicy + upgrade + reporting }]),
   { key: "Reporting-Endpoints", value: 'csp="/api/csp-report"' },
   // https のみで接続させる（2年。Vercel の既定と同じ値。includeSubDomains・preload は元に戻しにくいので付けていない）
   { key: "Strict-Transport-Security", value: "max-age=63072000" },

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import type { FieldErrors } from "@/lib/form";
 import { resetTurnstile } from "./Turnstile";
 
@@ -44,6 +45,8 @@ export function useFormSubmit(endpoint: string, validate: (input: Record<string,
       if (res.ok && json.ok) {
         setStatus("done");
         form.reset();
+        // GA4 の「キーイベント」に設定して、問い合わせ・応募の件数を見る（form_name は contact / entry）
+        trackEvent("generate_lead", { form_name: endpoint.split("/").pop() ?? "" });
         // サンクス表示が見える位置へ
         requestAnimationFrame(() => root?.scrollIntoView({ behavior: "smooth", block: "start" }));
         return;

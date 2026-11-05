@@ -1,5 +1,7 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_JP, Shippori_Mincho, Sorts_Mill_Goudy } from "next/font/google";
+import AnalyticsEvents from "@/components/AnalyticsEvents";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
@@ -8,7 +10,7 @@ import RevealObserver from "@/components/RevealObserver";
 import SpCta from "@/components/SpCta";
 import { organizationJsonLd } from "@/lib/structured-data";
 import { baseOpenGraph } from "@/lib/seo";
-import { company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, GOOGLE_SITE_VERIFICATION, IS_PRODUCTION, SITE_URL } from "@/lib/site";
+import { company, DEFAULT_DESCRIPTION, DEFAULT_TITLE, GA_ID, GOOGLE_SITE_VERIFICATION, IS_PRODUCTION, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const noto = Noto_Sans_JP({
@@ -51,6 +53,9 @@ export const metadata: Metadata = {
   ...(GOOGLE_SITE_VERIFICATION ? { verification: { google: GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
+// GA4 は本番だけで計測する（Preview・ローカルの閲覧を数字に混ぜない）
+const gaId = IS_PRODUCTION && GA_ID && /^G-[A-Z0-9]+$/.test(GA_ID) ? GA_ID : null;
+
 export const viewport: Viewport = {
   themeColor: "#222222",
   viewportFit: "cover",
@@ -73,7 +78,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SpCta />
         <RevealObserver />
         <JsonLd data={organizationJsonLd()} />
+        {gaId && <AnalyticsEvents />}
       </body>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }
