@@ -69,7 +69,7 @@ API：`/api/entry`（採用エントリー）、`/api/contact`（お問い合わ
 - [ ] 給与が確定したら `JOB_POSTING_ENABLED = true`（JobPosting の構造化データを出力。`datePosted` も見直す）
 - [x] スタッフ紹介の名前・入社年・コメント（`data/staff.ts`）
 - [ ] アクセント色
-- [ ] ドメイン（`NEXT_PUBLIC_SITE_URL`）
+- [x] ドメイン（`https://www.sasakisetsubi.com`。Xserver で取得、DNS は Xserver のまま Vercel に向けている）
 - [ ] 「私たちの強み」の説明文・各見出しのキャッチ（指示書の文章から起こした案。要確認）
 - [ ] 公開後に Google Search Console へ登録（下の「公開の手順」）
 
