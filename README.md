@@ -83,7 +83,7 @@ API：`/api/entry`（採用エントリー）、`/api/contact`（お問い合わ
 
 ### 2. Google Search Console
 1. 「ドメイン」プロパティで追加し、表示される TXT レコードを DNS に入れて確認する（http/https・www 有無をまとめて扱える。HTML タグで確認する場合は `GOOGLE_SITE_VERIFICATION`）
-2. 「サイトマップ」に `sitemap.xml` を送信する
+2. 「サイトマップ」に `https://www.sasakisetsubi.com/sitemap.xml`（フル URL）を送信する（「ドメイン」プロパティでは `sitemap.xml` だけだと無効になる）
 3. 「URL 検査」で TOP・採用情報をインデックス登録リクエストする
 4. 1〜2 週間後に「ページのインデックス登録」で、6 ページが登録されているか確かめる
 
