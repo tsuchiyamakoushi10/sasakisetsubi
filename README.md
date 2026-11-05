@@ -21,7 +21,7 @@ npm run build && npm start   # 本番ビルドの確認
 | `RESEND_API_KEY` | Resend の API キー（本番で未設定だと、フォームは「お電話で」と案内するエラーを返す） |
 | `MAIL_FROM` | 送信元（既定：`株式会社佐々木設備 <noreply@x-edge-mail.jp>`） |
 | `MAIL_TO` | 通知先（`sasakisetsubi912@gmail.com`） |
-| `NEXT_PUBLIC_GA_ID` | GA4 の測定 ID（`G-` で始まる）。本番（Production）だけで計測する。**入れる前にプライバシーポリシーへ GA の記載を足す** |
+| `NEXT_PUBLIC_GA_ID` | GA4 の測定 ID（`G-` で始まる）。本番（Production）だけで計測する。入れると、プライバシーポリシーに GA の記載が自動で出る |
 | `GOOGLE_SITE_VERIFICATION` | Search Console の「HTML タグ」で確認するときのコード（`content="…"` の中身）。DNS で確認するなら不要 |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile（フォームのロボット判定）のキー。両方入れると有効になる（フォームに確認の枠が出る） |
 | `VERCEL_DEEP_CLONE` | `true` にする。sitemap の lastmod（最終更新日）を git の履歴から取るため。未設定だと lastmod を出さない |
@@ -88,11 +88,10 @@ API：`/api/entry`（採用エントリー）、`/api/contact`（お問い合わ
 4. 1〜2 週間後に「ページのインデックス登録」で、6 ページが登録されているか確かめる
 
 ### 3. Google アナリティクス 4
-1. プライバシーポリシーに GA の記載を足す（Google の規約で必要）
-2. GA4 のプロパティとウェブストリームを作り、測定 ID を `NEXT_PUBLIC_GA_ID` に入れて再デプロイする
-3. GA4 の管理 → イベントで `generate_lead`（問い合わせ・応募の完了）をキーイベントにする。`tel_click`（電話番号のタップ）もキーイベントにしてよい
-4. GA4 の管理 → データ保持を 14 か月にする（既定は 2 か月）
-5. 「リアルタイム」で自分のアクセスが見えることを確かめる
+1. GA4 のプロパティとウェブストリームを作り、測定 ID を `NEXT_PUBLIC_GA_ID` に入れて再デプロイする（プライバシーポリシーの「アクセス解析ツールについて」も自動で出る）
+2. GA4 の管理 → イベントで `generate_lead`（問い合わせ・応募の完了）をキーイベントにする。`tel_click`（電話番号のタップ）もキーイベントにしてよい
+3. GA4 の管理 → データ保持を 14 か月にする（既定は 2 か月）
+4. 「リアルタイム」で自分のアクセスが見えることを確かめる
 
 ### 4. セキュリティ
 - CSP は試験運用中（`next.config.ts` の `CSP_REPORT_ONLY = true`）。公開から 1〜2 週間、Vercel のログで `[csp-report]` を検索し、正規の動作（GA・地図・フォーム）による違反が出ていなければ `false` にして本番適用する
