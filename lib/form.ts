@@ -22,6 +22,11 @@ function str(v: unknown, max: number): string {
   return typeof v === "string" ? v.trim().slice(0, max) : "";
 }
 
+/** 1 行の項目（改行などの制御文字を空白にする。メールの件名に入るものもあるため） */
+function line(v: unknown, max: number): string {
+  return str(typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f]+/g, " ") : v, max);
+}
+
 export type EntryData = {
   name: string;
   tel: string;
@@ -34,12 +39,12 @@ export type EntryData = {
 
 export function validateEntry(input: Record<string, unknown>): { data: EntryData; errors: FieldErrors } {
   const data: EntryData = {
-    name: str(input.name, 50),
-    tel: str(input.tel, 20),
-    age: str(input.age, 3),
-    job: str(input.job, 10),
-    experience: str(input.experience, 10),
-    email: str(input.email, 254),
+    name: line(input.name, 50),
+    tel: line(input.tel, 20),
+    age: line(input.age, 3),
+    job: line(input.job, 10),
+    experience: line(input.experience, 10),
+    email: line(input.email, 254),
     message: str(input.message, 2000),
   };
   const errors: FieldErrors = {};
@@ -66,10 +71,10 @@ export type ContactData = {
 
 export function validateContact(input: Record<string, unknown>): { data: ContactData; errors: FieldErrors } {
   const data: ContactData = {
-    company: str(input.company, 100),
-    name: str(input.name, 50),
-    tel: str(input.tel, 20),
-    email: str(input.email, 254),
+    company: line(input.company, 100),
+    name: line(input.name, 50),
+    tel: line(input.tel, 20),
+    email: line(input.email, 254),
     message: str(input.message, 4000),
   };
   const errors: FieldErrors = {};

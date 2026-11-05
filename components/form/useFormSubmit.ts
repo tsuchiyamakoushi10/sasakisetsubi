@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { FieldErrors } from "@/lib/form";
+import { resetTurnstile } from "./Turnstile";
 
 type Status = "idle" | "sending" | "done" | "error";
 
@@ -47,10 +48,12 @@ export function useFormSubmit(endpoint: string, validate: (input: Record<string,
         requestAnimationFrame(() => root?.scrollIntoView({ behavior: "smooth", block: "start" }));
         return;
       }
+      resetTurnstile();
       setErrors(json.errors ?? {});
       setMessage(json.message ?? "送信できませんでした。お手数ですが、お電話でご連絡ください。");
       setStatus("error");
     } catch {
+      resetTurnstile();
       setMessage("通信に失敗しました。電波の良い場所で再度お試しいただくか、お電話でご連絡ください。");
       setStatus("error");
     }

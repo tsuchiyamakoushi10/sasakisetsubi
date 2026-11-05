@@ -3,6 +3,7 @@
 import { experienceOptions, jobOptions, validateEntry } from "@/lib/form";
 import { company } from "@/lib/site";
 import { Agree, FormMessage, Honeypot, RadioGroup, SubmitButton, TextArea, TextField } from "./Fields";
+import Turnstile from "./Turnstile";
 import { useFormSubmit } from "./useFormSubmit";
 
 export default function EntryForm() {
@@ -49,6 +50,7 @@ export default function EntryForm() {
         <Agree error={errors.agree} />
 
         <div className="space-y-5 border-t border-line pt-8 text-center">
+          <Turnstile />
           <FormMessage message={message} />
           <p className="c-mincho text-lg font-semibold tracking-[0.06em] md:text-xl">まずは話を聞くだけでもOKです</p>
           <SubmitButton sending={status === "sending"}>エントリーする</SubmitButton>

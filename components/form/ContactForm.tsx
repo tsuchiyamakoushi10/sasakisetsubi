@@ -3,6 +3,7 @@
 import { validateContact } from "@/lib/form";
 import { company } from "@/lib/site";
 import { Agree, FormMessage, Honeypot, SubmitButton, TextArea, TextField } from "./Fields";
+import Turnstile from "./Turnstile";
 import { useFormSubmit } from "./useFormSubmit";
 
 export default function ContactForm() {
@@ -45,6 +46,7 @@ export default function ContactForm() {
         />
         <Agree error={errors.agree} />
         <div className="space-y-5 border-t border-line pt-8 text-center">
+          <Turnstile />
           <FormMessage message={message} />
           <SubmitButton sending={status === "sending"}>送信する</SubmitButton>
         </div>
