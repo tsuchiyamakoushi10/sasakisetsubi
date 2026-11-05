@@ -7,7 +7,8 @@ type Mail = {
   replyTo?: string;
 };
 
-const DEFAULT_FROM = "株式会社佐々木設備 <noreply@x-edge-mail.jp>";
+// 送信元は佐々木設備のドメイン（Resend で sasakisetsubi.com を認証済みにしておく。README「メール」参照）
+const DEFAULT_FROM = "株式会社佐々木設備 <noreply@sasakisetsubi.com>";
 
 export class MailConfigError extends Error {}
 

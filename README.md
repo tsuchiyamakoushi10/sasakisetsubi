@@ -19,7 +19,7 @@ npm run build && npm start   # 本番ビルドの確認
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | 公開URL（`https://` から、末尾スラッシュなし）。canonical・OGP・sitemap・JSON-LD に使う。未設定なら Vercel の本番 URL（`*.vercel.app`）になる。独自ドメインを入れると、本番の `*.vercel.app` へのアクセスは独自ドメインへ転送される |
 | `RESEND_API_KEY` | Resend の API キー（本番で未設定だと、フォームは「お電話で」と案内するエラーを返す） |
-| `MAIL_FROM` | 送信元（既定：`株式会社佐々木設備 <noreply@x-edge-mail.jp>`） |
+| `MAIL_FROM` | 送信元（既定：`株式会社佐々木設備 <noreply@sasakisetsubi.com>`） |
 | `MAIL_TO` | 通知先（`sasakisetsubi912@gmail.com`） |
 | `NEXT_PUBLIC_GA_ID` | GA4 の測定 ID（`G-` で始まる）。本番（Production）だけで計測する。入れると、プライバシーポリシーに GA の記載が自動で出る |
 | `GOOGLE_SITE_VERIFICATION` | Search Console の「HTML タグ」で確認するときのコード（`content="…"` の中身）。DNS で確認するなら不要 |
@@ -98,3 +98,13 @@ API：`/api/entry`（採用エントリー）、`/api/contact`（お問い合わ
 - Vercel の Firewall で `/api/contact`・`/api/entry` に IP ごとのレート制限（例：10 分に 5 回）を設定する（コード側の制限はサーバーごとのメモリなので、併用する）
 - フォームのスパムが増えたら Turnstile のキーを入れる
 - 公開後に確かめる：securityheaders.com（A 以上）、PageSpeed Insights（モバイル）、リッチリザルトテスト（TOP・事業紹介）、Search Console のインデックス状況
+
+## メール（Resend）
+
+フォームの通知メールと自動返信は Resend（X-EDGE のアカウント）から `noreply@sasakisetsubi.com` で送る。
+
+1. Resend の Domains で `sasakisetsubi.com` を追加する（Region は Tokyo）
+2. 表示された DNS レコード（`resend._domainkey` の TXT、`send` の MX と TXT）を Xserver の DNS レコード設定に追加する。内容の末尾の「.」は消す
+3. DMARC も追加する：ホスト名 `_dmarc`、種別 TXT、内容 `v=DMARC1; p=none;`（Gmail に迷惑メール扱いされにくくする）
+4. Resend で Verified（認証済み）になったら、API Keys で送信用のキーを作り、Vercel の `RESEND_API_KEY` に入れる。`MAIL_TO` も入れて再デプロイする
+5. お問い合わせ・採用エントリーから実際に送信し、通知と自動返信が届くこと、自動返信に返信すると `MAIL_TO` に届くことを確かめる
